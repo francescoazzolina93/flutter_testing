@@ -19,110 +19,97 @@ class _LoginTestPageState extends State<LoginTestPage>{
 
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomPadding: false,
       backgroundColor: Colors.black,
       body: Form(
         key: _formKey,
-        child: Stack(
+        child: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  FlutterLogo(
-                    size: 200.0,
-                    colors: Colors.red,
-                  ),
-
-                  Container(
-                    child: Form(
+              FlutterLogo(
+                size: 200.0,
+                colors: Colors.red,
+              ),
+              Container(
+                padding: const EdgeInsets.only(left: 80.0, right: 80.0),
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(height: 40.0),
+                    Theme(
+                        data: ThemeData(
+                            primaryColor: Colors.red,
+                            hintColor: Colors.grey,
+                            textTheme: Theme.of(context).textTheme.apply(
+                              bodyColor: Colors.white,
+                            )
+                        ),
                         child: Column(
                           children: <Widget>[
-                            Container(
-                              padding: const EdgeInsets.only(left: 80.0, right: 80.0),
-                              child: Column(
-                                children: <Widget>[
-                                  SizedBox(height: 70.0),
-                                  Theme(
-                                    data: ThemeData(
-                                      primaryColor: Colors.red,
-                                      primaryColorDark: Colors.red,
-                                      hintColor: Colors.grey,
-                                    ),
-                                    child: Column(
-                                      children: <Widget>[
-                                        TextFormField(
-                                          decoration: InputDecoration(
-                                              hintText: "Email",
-                                              border: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(30.0)),
-                                              enabledBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(30.0),
-                                                  borderSide: BorderSide(color: Colors.red)
-                                              )
-                                          ),
-                                          keyboardType: TextInputType.emailAddress,
-                                          validator: (input){
-                                            if(input.isEmpty){
-                                              return "Inserire un'email";
-                                            }
-                                          },
-                                          onSaved: (input) => _email = input,
-                                        ),
-                                        SizedBox(height: 20.0),
-                                        TextFormField(
-                                          decoration: InputDecoration(
-                                              hintText: "Password",
-                                              border: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(30.0)),
-                                              enabledBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(30.0),
-                                                  borderSide: BorderSide(color: Colors.red)
-                                              )
-                                          ),
-                                          keyboardType: TextInputType.text,
-                                          obscureText: true,
-                                          validator: (input){
-                                            if(input.length < 6){
-                                              return "La password deve essere lunga almeno 6 caratteri";
-                                            }
-                                          },
-                                          onSaved: (input) => _password = input,
-                                        ),
-                                      ],
-                                    )
-                                  ),
-
-                                ],
-                              ),
-                            ),
-
-                            Padding(
-                                padding: const EdgeInsets.only(top: 50.0)),
-                            Material(
-                                borderRadius: BorderRadius.circular(25.0),
-                                color: Colors.red,
-                              child: MaterialButton(
-                                  height: 50.0,
-                                  minWidth: 100.0,
-                                  textColor: Colors.black,
-                                  elevation: 6.0,
-                                  child: Text(
-                                    "Login",
-                                    textAlign: TextAlign.center),
-                                  onPressed: (){
-                                    _AlertTest(context);
-                                    signIn();
-                                  }
+                            TextFormField(
+                              validator: (input){
+                                if(input.isEmpty){
+                                  return "Inserire un'email";
+                                }
+                                },
+                              decoration: InputDecoration(
+                                  hintText: "Email",
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(30.0)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                      borderSide: BorderSide(color: Colors.red)
                                   )
+                              ),
+                              keyboardType: TextInputType.emailAddress,
+                              onSaved: (input) => _email = input,
                             ),
-
+                            SizedBox(height: 20.0),
+                            TextFormField(
+                              validator: (input){
+                                if(input.length < 6){
+                                  return "La password deve essere lunga almeno 6 caratteri";
+                                }
+                                },
+                              decoration: InputDecoration(
+                                  hintText: "Password",
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(30.0)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                      borderSide: BorderSide(color: Colors.red)
+                                  )
+                              ),
+                              keyboardType: TextInputType.text,
+                              obscureText: true,
+                              onSaved: (input) => _password = input,
+                            ),
                             Padding(
-                                padding: const EdgeInsets.only(top: 50.0)),
+                                padding: const EdgeInsets.only(top: 30.0)),
                             Material(
                                 borderRadius: BorderRadius.circular(25.0),
                                 color: Colors.red,
                                 child: MaterialButton(
                                     height: 50.0,
-                                    minWidth: 100.0,
+                                    minWidth: 150.0,
+                                    textColor: Colors.black,
+                                    elevation: 6.0,
+                                    child: Text(
+                                        "Login",
+                                        textAlign: TextAlign.center),
+                                    onPressed: (){
+                                      signIn();
+                                    }
+                                    )
+                            ),
+                            Padding(
+                                padding: const EdgeInsets.only(top: 20.0)),
+                            Material(
+                                borderRadius: BorderRadius.circular(25.0),
+                                color: Colors.red,
+                                child: MaterialButton(
+                                    height: 50.0,
+                                    minWidth: 150.0,
                                     textColor: Colors.black,
                                     elevation: 6.0,
                                     child: Text(
@@ -131,16 +118,17 @@ class _LoginTestPageState extends State<LoginTestPage>{
                                     onPressed: (){
                                       signUp();
                                     }
-                                )
+                                    )
                             )
                           ],
                         )
                     ),
-                  ),
-                ],
-              )
+                  ],
+                ),
+              ),
             ],
-        ),
+          ),
+        )
       )
     );
   }
@@ -150,11 +138,13 @@ class _LoginTestPageState extends State<LoginTestPage>{
     if(formState.validate()){
       formState.save();
       try {
-        FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password);
+        AuthResult authResult = await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password);
+        FirebaseUser firebaseUser = authResult.user;
         Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder:(BuildContext context) => HomePageMenu() ));
       }catch(e){
         print(e.message);
+        _alertTest(context);
       }
     }
 
@@ -168,13 +158,13 @@ class _LoginTestPageState extends State<LoginTestPage>{
 }
 
 
-Future<void> _AlertTest(BuildContext context) async{
+Future<void> _alertTest(BuildContext context) async{
   return showDialog(
     context: context,
     barrierDismissible: false, // must tap to close
     builder: (BuildContext context){
       return AlertDialog(
-        title: Text("Logged in"),
+        title: Text("Error!"),
         backgroundColor: Colors.black,
         shape: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.red),
@@ -187,7 +177,7 @@ Future<void> _AlertTest(BuildContext context) async{
                 Theme(
                   data: ThemeData(
                   ),
-                  child: Text("You are now logged in"),
+                  child: Text("Wrong Email or Password!"),
                 )
               ],
             ),
@@ -201,11 +191,9 @@ Future<void> _AlertTest(BuildContext context) async{
               borderSide: BorderSide(color: Colors.red),
               gapPadding: 50.0,
             ),
-            child: Text(
-                "OK"),
+            child: Text("OK"),
             onPressed: (){
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) => HomePageMenu() ));
+              Navigator.of(context).pop();
             },
           )
         ],
